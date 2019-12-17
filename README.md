@@ -3,24 +3,24 @@ A custom color override for powerlevel10k os icons
 
 Install simply with after you have installed powerlevel10k and configured it
 ```
-sh -c "$(curl -fsSL https://raw.github.com/hunter-read/powerlevel10k-custom-os-colors/master/install.sh)"
+sh -c "$(curl -fsSL https://raw.github.com/hunter-read/powerlevel10k-custom-os-colors/master/install.sh)" && source ~/.zshrc
 ```
 
 Note: `.os-colors.zsh` must be sourced after `.p10k.zsh`
 
 ## Examples
 
-* Linux    
+* Linux      
 ![Linux Icon](https://raw.github.com/hunter-read/powerlevel10k-custom-os-colors/master/examples/linux.png)
-* Mac OS   
+* Mac OS      
 ![OSX Icon](https://raw.github.com/hunter-read/powerlevel10k-custom-os-colors/master/examples/osx.png)
-* Raspbian    
+* Raspbian        
 ![Raspbian Icon](https://raw.github.com/hunter-read/powerlevel10k-custom-os-colors/master/examples/raspbian.png)
-* Ubuntu   
+* Ubuntu       
 ![Ubuntu Icon](https://raw.github.com/hunter-read/powerlevel10k-custom-os-colors/master/examples/ubuntu.png)
-* Windows  
+* Windows      
 ![Windows Icon](https://raw.github.com/hunter-read/powerlevel10k-custom-os-colors/master/examples/windows.png)
-* Android  
+* Android      
 ![Android Icon](https://raw.github.com/hunter-read/powerlevel10k-custom-os-colors/master/examples/android.png)
 
 ### Contributions
