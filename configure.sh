@@ -1,13 +1,12 @@
 #!/usr/bin/env zsh
-if [[ -f ~/.p10k.zsh ]]; then
-    source ~/.p10k.zsh
+
+_P10K_FILE=~/.p10k.zsh
+if [[ -f $_P10K_FILE ]]; then
+    source $_P10K_FILE
 else 
     echo "p10k.zsh not found. Please configure powerlevel10k first and then run this script"
     exit 1
 fi
-
-_BASE_PATH=${ZSH_CUSTOM:-$HOME}
-_CUSTOM_ICON_COLOR_FILE=$_BASE_PATH/.custom-p10k-icon-colors.zsh
 
 #os icons
 _MACOS=$'\uF179'
@@ -63,24 +62,54 @@ function quit() {
     exit 0
 }
 
+#can take args:
+#os
+function _set_icon_colors() {
+  custom_foreground=$1
+  custom_background=$2
+  [[ ! -z "$3" ]] && custom_icon=$3
+}
+
 function set_icon_colors() {
-    case $1 in
-        [0-9]*)   custom_foreground=$1;  custom_background=$2  ;;
-        MacOS)    custom_foreground=7;   custom_background=232 ;;     
-        Windows)  custom_foreground=39;  custom_background=15  ;;        
-        Android)  custom_foreground=118; custom_background=232 ;;        
-        BSD)      custom_foreground=160; custom_background=15  ;;        
-        Arch)     custom_foreground=15;  custom_background=69  ;;        
-        Debian)   custom_foreground=161; custom_background=15  ;;        
-        Raspbian) custom_foreground=233; custom_background=88  ;;      
-        Ubuntu)   custom_foreground=233; custom_background=208 ;;       
-        Fedora)   custom_foreground=20;  custom_background=15  ;;        
-        CentOS)   custom_foreground=54;  custom_background=15  ;;        
-        Mint)     custom_foreground=15;  custom_background=76  ;;        
-        Linux)    custom_foreground=233; custom_background=15  ;;
-        *)        custom_foreground=232; custom_background=7   ;; #default
-    esac
-    custom_return_success=1;
+  custom_return_success=1
+  case $1 in
+    [0-9]*)       _set_icon_colors $1 $2 $3;;
+    Android)      _set_icon_colors 118 232 $2;;        
+    Angular)      custom_icon=$_ANGULAR;;
+    Arch)         _set_icon_colors 15 69 $2;;        
+    Aws)          custom_icon=$_AWS;;
+    Azure)        custom_icon=$_AZURE;;
+    Bitbucket)    _set_icon_colors 26 251 $_BITBUCKET;;
+    BSD)          _set_icon_colors 160 15 $2;;        
+    CentOS)       _set_icon_colors 54 15 $2;;        
+    Cpp)          custom_icon=$_CPP;;
+    Debian)       _set_icon_colors 161 15 $2;;        
+    DigitalOcean) custom_icon=$_DIGITAL_OCEAN;;
+    Docker)       _set_icon_colors 27 225 $_DOCKER;;
+    Electron)     custom_icon=$_ELECTRON;;
+    Ember)        custom_icon=$_EMBER;; 
+    Fedora)       _set_icon_colors 20 15 $2;;        
+    Firefox)      _set_icon_colors 166 92 $_FIREFOX;;
+    Git)          custom_icon=$_GIT;;
+    Github)       _set_icon_colors 16 253 $_GITHUB;;
+    Gitlab)       _set_icon_colors 172 53 $_GITLAB;;
+    Go)           custom_icon=$_GO;;
+    Java)         custom_icon=$_JAVA;;
+    Javascript)   custom_icon=$_JAVASCRIPT;; 
+    Linux)        _set_icon_colors 233 15 $2;;
+    MacOS)        _set_icon_colors 7 232 $2;;     
+    Mint)         _set_icon_colors 15 76 $2;;        
+    Plex)         _set_icon_colors 232 220 $_PLEX;;
+    Python)       _set_icon_colors 226 20 $_PYTHON;;
+    Raspbian)     _set_icon_colors 233 88 $2;;      
+    React)        custom_icon=$_REACT;; 
+    Ruby)         custom_icon=$_RUBY;;
+    Swift)        custom_icon=$_SWIFT;;
+    Ubuntu)       _set_icon_colors 233 208 $2;;       
+    Vue)          _set_icon_colors 34 232 $_VUE;;
+    Windows)      _set_icon_colors 39 15 $2;;        
+    *)            _set_icon_colors 232 7;;
+  esac
 }
 
 function ask_custom() {
@@ -160,14 +189,14 @@ function choose_linux_icon() {
     case $key in
       q) quit;;
       r) custom_return_success=0; break;;
-      1) custom_icon=$_LINUX;    set_icon_colors Linux;     break;;
-      2) custom_icon=$_UBUNTU;   set_icon_colors Ubuntu;    break;;
-      3) custom_icon=$_DEBIAN;   set_icon_colors Debian;    break;;
-      4) custom_icon=$_RASPBIAN; set_icon_colors Raspbian;  break;;
-      5) custom_icon=$_MINT;     set_icon_colors Mint;      break;;
-      6) custom_icon=$_FEDORA;   set_icon_colors Fedora;    break;;
-      7) custom_icon=$_CENTOS;   set_icon_colors CentOS;    break;;
-      8) custom_icon=$_ARCH;     set_icon_colors Arch;      break;;
+      1) set_icon_colors Linux $_LINUX;       break;;
+      2) set_icon_colors Ubuntu $_UBUNTU;     break;;
+      3) set_icon_colors Debian $_DEBIAN;     break;;
+      4) set_icon_colors Raspbian $_RASPBIAN; break;;
+      5) set_icon_colors Mint $_MINT;         break;;
+      6) set_icon_colors Fedora $_FEDORA;     break;;
+      7) set_icon_colors CentOS $_CENTOS;     break;;
+      8) set_icon_colors Arch $_ARCH;         break;;
     esac
   done
 }
@@ -192,9 +221,9 @@ function choose_os_icon() {
     case $key in
       q) quit;;
       r) custom_return_success=0; break;;
-      1) custom_icon=$_MACOS;   set_icon_colors MacOS;    break;;
-      2) custom_icon=$_WINDOWS; set_icon_colors Windows;  break;;
-      3) custom_icon=$_ANDROID; set_icon_colors Android;  break;;
+      1) set_icon_colors MacOS $_MACOS;     break;;
+      2) set_icon_colors Windows $_WINDOWS; break;;
+      3) set_icon_colors Android $_ANDROID; break;;
       5) choose_linux_icon; [[ $custom_return_success == 1 ]] && break;;
     esac
   done
@@ -221,13 +250,13 @@ function choose_js_icon() {
     read -k key${(%):-"?%BChoice [123456rq]: %b"} || quit
     case $key in
       q) quit;;
-      r) custom_return_success=0; break;;
-      1) custom_icon=$_JAVASCRIPT; set_icon_colors; break;; 
-      2) custom_icon=$_ANGULAR;    set_icon_colors; break;; 
-      3) custom_icon=$_VUE;        set_icon_colors 34 232; break;; 
-      4) custom_icon=$_REACT;      set_icon_colors; break;; 
-      5) custom_icon=$_EMBER;      set_icon_colors; break;; 
-      6) custom_icon=$_ELECTRON;   set_icon_colors; break;; 
+      r) custom_return_success=0;    break;;
+      1) set_icon_colors Javascript; break;; 
+      2) set_icon_colors Angular;    break;; 
+      3) set_icon_colors Vue;        break;; 
+      4) set_icon_colors React;      break;; 
+      5) set_icon_colors Ember;      break;; 
+      6) set_icon_colors Electron;   break;; 
     esac
   done
 }
@@ -254,12 +283,12 @@ function choose_prog_icon() {
     case $key in
       q) quit;;
       r) custom_return_success=0; break;;
-      1) custom_icon=$_PYTHON; set_icon_colors 226 20; break;;
-      2) custom_icon=$_JAVA;   set_icon_colors ; break;;
-      3) custom_icon=$_CPP;    set_icon_colors ; break;;
-      4) custom_icon=$_SWIFT;  set_icon_colors ; break;;
-      5) custom_icon=$_RUBY;   set_icon_colors ; break;;
-      6) custom_icon=$_GO;     set_icon_colors ; break;;
+      1) set_icon_colors Python; break;;
+      2) set_icon_colors Java; break;;
+      3) set_icon_colors Cpp; break;;
+      4) set_icon_colors Swift; break;;
+      5) set_icon_colors Ruby; break;;
+      6) set_icon_colors Go; break;;
       7) choose_js_icon; [[ $custom_return_success == 1 ]] && break;;
     esac
   done
@@ -288,14 +317,14 @@ function choose_dev_icon() {
     case $key in
       q) quit;;
       r) custom_return_success=0; break;;
-      1) custom_icon=$_DOCKER;        set_icon_colors 27 225; break;;
-      2) custom_icon=$_GIT;           set_icon_colors; break;;
-      3) custom_icon=$_GITHUB;        set_icon_colors 16 253; break;;
-      4) custom_icon=$_GITLAB;        set_icon_colors 172 53; break;;
-      5) custom_icon=$_BITBUCKET;     set_icon_colors 26 251 ; break;;
-      6) custom_icon=$_AWS;           set_icon_colors ; break;;
-      7) custom_icon=$_AZURE;         set_icon_colors ; break;;
-      8) custom_icon=$_DIGITAL_OCEAN; set_icon_colors ; break;;
+      1) set_icon_colors Docker; break;;
+      2) set_icon_colors Git; break;;
+      3) set_icon_colors Github; break;;
+      4) set_icon_colors Gitlab; break;;
+      5) set_icon_colors Bitbucket; break;;
+      6) set_icon_colors Aws; break;;
+      7) set_icon_colors Azure; break;;
+      8) set_icon_colors DigitalOcean; break;;
     esac
   done
 }
@@ -317,8 +346,8 @@ function choose_other_icon() {
     case $key in
       q) quit;;
       r) custom_return_success=0; break;;
-      1) custom_icon=$_PLEX;    set_icon_colors 232 220; break;;
-      2) custom_icon=$_FIREFOX; set_icon_colors 166 92;  break;;
+      1) set_icon_colors Plex; break;;
+      2) set_icon_colors Firefox;  break;;
     esac
   done
 }
@@ -364,17 +393,41 @@ else
     exit 1
 fi
 
-#First unset any icons and colors that may be set
-sed -i.os-colors.bkup "/source $(echo $_CUSTOM_ICON_COLOR_FILE | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')/d" $HOME/.zshrc
-touch $_CUSTOM_ICON_COLOR_FILE
-echo "#!/usr/bin/env zsh" > $_CUSTOM_ICON_COLOR_FILE
-[ ! -z "$custom_icon" ] && echo "POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=$custom_icon" >> $_CUSTOM_ICON_COLOR_FILE
-echo "POWERLEVEL9K_OS_ICON_FOREGROUND=$custom_foreground" >> $_CUSTOM_ICON_COLOR_FILE
-echo "POWERLEVEL9K_OS_ICON_BACKGROUND=$custom_background" >> $_CUSTOM_ICON_COLOR_FILE
+
+# Add custom icon
+result=$(grep -F "POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION" $_P10K_FILE)
+if [[ -n $result ]]; then
+  sed -i.os-colors.bkup "/.*POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION.*/d" $_P10K_FILE
+fi
+if [[ ! -z "$custom_icon" ]]; then
+  sed -i.os-colors-bkup -e"/.*os_icon:.*/a\ 
+  typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=$custom_icon" $_P10K_FILE
+else
+  #Restore default
+  sed -i.os-colors-bkup -e'/.*os_icon:.*/a\
+  typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='\''%B${P9K_CONTENT}'\''' $_P10K_FILE
+fi
+
+#set icon colour
+result=$(grep -F "POWERLEVEL9K_OS_ICON_FOREGROUND" $_P10K_FILE)
+if [[ -n $result ]]; then
+  sed -i.os-colors.bkup -e"/.*POWERLEVEL9K_OS_ICON_FOREGROUND.*/d" $_P10K_FILE
+fi
+sed -i.os-colors-bkup -e"/.*os_icon:.*/a\ 
+  typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=$custom_foreground" $_P10K_FILE
+
+#set icon background colour
+result=$(grep -F "POWERLEVEL9K_OS_ICON_BACKGROUND" $_P10K_FILE)
+if [[ -n $result ]]; then
+  sed -i.os-colors.bkup -e"/.*POWERLEVEL9K_OS_ICON_BACKGROUND.*/d" $_P10K_FILE
+fi
+sed -i.os-colors-bkup -e"/.*os_icon:.*/a\ 
+ typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=$custom_background" $_P10K_FILE
+
 clear
 echo ""
-echo "Saving selection to $_CUSTOM_ICON_COLOR_FILE and updating .zshrc"
-echo "source $_CUSTOM_ICON_COLOR_FILE" >> $HOME/.zshrc
-echo "Re-source your .zshrc with 'source ~/.zshrc'"
-rm -f .zshrc.os-colors.bkup
+echo "Updating ~/.p10k.zsh"
+echo "Reload your zsh with 'source ~/.zshrc'"
+rm -f $_P10K_FILE.os-colors-bkup
+
 
