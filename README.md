@@ -1,13 +1,12 @@
 # powerlevel10k-custom-os-colors
-A custom color override for powerlevel10k os icons
+A custom color and/or icon override for powerlevel10k os icons
 
 Install simply with after you have installed powerlevel10k and configured it
 ```
-sh -c "$(curl -fsSL https://raw.github.com/hunter-read/powerlevel10k-custom-os-colors/master/install.sh)" && source ~/.zshrc
+sh -c "$(curl -fsSL https://raw.github.com/hunter-read/powerlevel10k-custom-os-colors/master/configure.sh)" && source ~/.zshrc
 ```
 
-Note: `.os-colors.zsh` must be sourced after `.p10k.zsh`
-
+Note: if you configure p10k again, you may need to re-run the configure script
 ## Examples
 
 * Linux     ![Linux Icon](https://raw.github.com/hunter-read/powerlevel10k-custom-os-colors/master/examples/linux.png)
@@ -18,4 +17,4 @@ Note: `.os-colors.zsh` must be sourced after `.p10k.zsh`
 * Android   ![Android Icon](https://raw.github.com/hunter-read/powerlevel10k-custom-os-colors/master/examples/android.png)
 
 ### Contributions
-Please feel free to submit a pull request if you would like to add more options (Not all linux distros are supported yet), or if you feel that a os color palette is incorrect.
+Please feel free to submit an issue or pull request if you would like for more options, or if you feel that a color palette is incorrect.
