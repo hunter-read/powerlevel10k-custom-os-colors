@@ -3,7 +3,7 @@ A custom color and/or icon override for powerlevel10k os icons
 
 Install simply with after you have installed powerlevel10k and configured it
 ```
-sh -c "$(curl -fsSL https://raw.github.com/hunter-read/powerlevel10k-custom-os-colors/master/configure.sh)" && source ~/.zshrc
+zsh -c "$(curl -fsSL https://raw.github.com/hunter-read/powerlevel10k-custom-os-colors/master/configure.sh)" && source ~/.zshrc
 ```
 
 Note: if you configure p10k again, you may need to re-run the configure script
