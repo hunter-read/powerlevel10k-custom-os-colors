@@ -156,7 +156,7 @@ function choose_linux_icon() {
     print -P ""
 
     local key=
-    read -k key${(%):-"?%BChoice [12345678bq]: %b"} || quit
+    read -k key${(%):-"?%BChoice [12345678rq]: %b"} || quit
     case $key in
       q) quit;;
       r) custom_return_success=0; break;;
@@ -188,7 +188,7 @@ function choose_os_icon() {
     print -P ""
 
     local key=
-    read -k key${(%):-"?%BChoice [12345bq]: %b"} || quit
+    read -k key${(%):-"?%BChoice [12345rq]: %b"} || quit
     case $key in
       q) quit;;
       r) custom_return_success=0; break;;
@@ -218,13 +218,13 @@ function choose_js_icon() {
 
 
     local key=
-    read -k key${(%):-"?%BChoice [123456bq]: %b"} || quit
+    read -k key${(%):-"?%BChoice [123456rq]: %b"} || quit
     case $key in
       q) quit;;
       r) custom_return_success=0; break;;
       1) custom_icon=$_JAVASCRIPT; set_icon_colors; break;; 
       2) custom_icon=$_ANGULAR;    set_icon_colors; break;; 
-      3) custom_icon=$_VUE;        set_icon_colors; break;; 
+      3) custom_icon=$_VUE;        set_icon_colors 34 232; break;; 
       4) custom_icon=$_REACT;      set_icon_colors; break;; 
       5) custom_icon=$_EMBER;      set_icon_colors; break;; 
       6) custom_icon=$_ELECTRON;   set_icon_colors; break;; 
@@ -250,7 +250,7 @@ function choose_prog_icon() {
     print -P ""
 
     local key=
-    read -k key${(%):-"?%BChoice [1234567bq]: %b"} || quit
+    read -k key${(%):-"?%BChoice [1234567rq]: %b"} || quit
     case $key in
       q) quit;;
       r) custom_return_success=0; break;;
@@ -284,17 +284,17 @@ function choose_dev_icon() {
     print -P ""
 
     local key=
-    read -k key${(%):-"?%BChoice [1234567bq]: %b"} || quit
+    read -k key${(%):-"?%BChoice [12345678rq]: %b"} || quit
     case $key in
       q) quit;;
       r) custom_return_success=0; break;;
-      1) custom_icon=$_DOCKER; set_icon_colors 27 225; break;;
-      2) custom_icon=$_GIT; set_icon_colors ; break;;
-      3) custom_icon=$_GITHUB; set_icon_colors ; break;;
-      4) custom_icon=$_GITLAB; set_icon_colors ; break;;
-      5) custom_icon=$_BITBUCKET; set_icon_colors ; break;;
-      6) custom_icon=$_AWS; set_icon_colors ; break;;
-      7) custom_icon=$_AZURE; set_icon_colors ; break;;
+      1) custom_icon=$_DOCKER;        set_icon_colors 27 225; break;;
+      2) custom_icon=$_GIT;           set_icon_colors; break;;
+      3) custom_icon=$_GITHUB;        set_icon_colors 16 253; break;;
+      4) custom_icon=$_GITLAB;        set_icon_colors 172 53; break;;
+      5) custom_icon=$_BITBUCKET;     set_icon_colors 26 251 ; break;;
+      6) custom_icon=$_AWS;           set_icon_colors ; break;;
+      7) custom_icon=$_AZURE;         set_icon_colors ; break;;
       8) custom_icon=$_DIGITAL_OCEAN; set_icon_colors ; break;;
     esac
   done
@@ -306,21 +306,19 @@ function choose_other_icon() {
     print -P "Choose an icon: "
     print -P ""
     print -P "%B(1)  Plex $_PLEX%b"
-    print -P "%B(2)  Chrome $_CHROME%b"
-    print -P "%B(3)  Firefox $_FIREFOX%b"
+    print -P "%B(2)  Firefox $_FIREFOX%b"
     print -P ""
     print -P "(r)  Return to previous step."
     print -P "(q)  Quit and do nothing."
     print -P ""
 
     local key=
-    read -k key${(%):-"?%BChoice [1bq]: %b"} || quit
+    read -k key${(%):-"?%BChoice [12rq]: %b"} || quit
     case $key in
       q) quit;;
       r) custom_return_success=0; break;;
       1) custom_icon=$_PLEX;    set_icon_colors 232 220; break;;
-      2) custom_icon=$_CHROME;  set_icon_colors; break;;
-      3) custom_icon=$_FIREFOX; set_icon_colors 166 92;  break;;
+      2) custom_icon=$_FIREFOX; set_icon_colors 166 92;  break;;
     esac
   done
 }
@@ -339,7 +337,7 @@ function handle_custom() {
     print -P ""
 
     local key=
-    read -k key${(%):-"?%BChoice [12q]: %b"} || quit
+    read -k key${(%):-"?%BChoice [1234q]: %b"} || quit
     case $key in
       q) quit;;
       1) choose_os_icon ;;
