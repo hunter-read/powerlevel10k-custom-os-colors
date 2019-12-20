@@ -423,8 +423,8 @@ result=$(grep -F "POWERLEVEL9K_OS_ICON_BACKGROUND" $_P10K_FILE)
 if [[ -n $result ]]; then
   sed -i.os-colors.bkup -e"/.*POWERLEVEL9K_OS_ICON_BACKGROUND.*/d" $_P10K_FILE
 fi
-sed -i.os-colors-bkup -e'/.*os_icon:.*/a\
-typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND="$custom_background"' $_P10K_FILE
+sed -i.os-colors-bkup -e"/.*os_icon:.*/a\
+typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=$custom_background" $_P10K_FILE
 echo "Done"
 echo "Reload your zsh with 'source ~/.zshrc'"
 rm -f $_P10K_FILE.os-colors-bkup
