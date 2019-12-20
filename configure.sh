@@ -393,14 +393,16 @@ else
     exit 1
 fi
 
-
+clear
+echo ""
+echo "Updating ~/.p10k.zsh"
 # Add custom icon
 result=$(grep -F "POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION" $_P10K_FILE)
 if [[ -n $result ]]; then
   sed -i.os-colors.bkup "/.*POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION.*/d" $_P10K_FILE
 fi
 if [[ ! -z "$custom_icon" ]]; then
-  sed -i.os-colors-bkup -e"/.*os_icon:.*/a\ 
+  sed -i.os-colors-bkup -e"/.*os_icon:.*/a\
   typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=$custom_icon" $_P10K_FILE
 else
   #Restore default
@@ -413,20 +415,17 @@ result=$(grep -F "POWERLEVEL9K_OS_ICON_FOREGROUND" $_P10K_FILE)
 if [[ -n $result ]]; then
   sed -i.os-colors.bkup -e"/.*POWERLEVEL9K_OS_ICON_FOREGROUND.*/d" $_P10K_FILE
 fi
-sed -i.os-colors-bkup -e"/.*os_icon:.*/a\ 
-  typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=$custom_foreground" $_P10K_FILE
+sed -i.os-colors-bkup -e"/.*os_icon:.*/a\
+typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=$custom_foreground" $_P10K_FILE
 
 #set icon background colour
 result=$(grep -F "POWERLEVEL9K_OS_ICON_BACKGROUND" $_P10K_FILE)
 if [[ -n $result ]]; then
   sed -i.os-colors.bkup -e"/.*POWERLEVEL9K_OS_ICON_BACKGROUND.*/d" $_P10K_FILE
 fi
-sed -i.os-colors-bkup -e"/.*os_icon:.*/a\ 
- typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=$custom_background" $_P10K_FILE
-
-clear
-echo ""
-echo "Updating ~/.p10k.zsh"
+sed -i.os-colors-bkup -e'/.*os_icon:.*/a\
+typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND="$custom_background"' $_P10K_FILE
+echo "Done"
 echo "Reload your zsh with 'source ~/.zshrc'"
 rm -f $_P10K_FILE.os-colors-bkup
 
